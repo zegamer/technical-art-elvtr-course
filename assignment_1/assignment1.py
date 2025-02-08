@@ -10,7 +10,7 @@ def calculate_vector_length(vector_components: tuple) -> float:
     Calculate the length of a given vector.
 
     Args:
-        vector (tuple): The vector to calculate the length of
+        vector_components (tuple): The vector to calculate the length of
 
     Returns:
         float: The length of the vector
