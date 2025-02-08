@@ -15,7 +15,7 @@ def calculate_vector_length(vector_components: tuple) -> float:
     Returns:
         float: The length of the vector
     """
-    return sum(i[1] ** 2 for i in enumerate(vector_components)) ** 0.5
+    return sum(i ** 2 for i in vector_components) ** 0.5
 
 
 if __name__ == "__main__":
