@@ -11,6 +11,8 @@ def quit_condition(event: pygame.event.Event) -> bool:
     return event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and (event.key == pygame.K_ESCAPE or pygame.K_q))
 
 def load_messages(file_path: str) -> list:
-    print(os.getcwd() + "/" + file_path)
+    messages = []
     with open(os.getcwd() + "/" + file_path, "r") as file:
-        return file.readlines()
+        for i in file.readlines():
+            messages.append(i.strip())
+    return messages
