@@ -1,6 +1,7 @@
 import random
 import pygame
 from vector_distance import two_dimension_euclidean_distance
+import utils
 
 # pygame.init()
 
@@ -75,25 +76,16 @@ npc_pos = pygame.Vector2(WIDTH // 2 - 100, HEIGHT // 2)
 NPC_SPEED = 4
 FOLLOW_DISTANCE = 50  # NPC follows if beyond this distance
 
-FOLLOW_MESSAGES = [
-"Hey, wait up!", "Where are we going?", "Are we there yet?","Stop ignoring me!"
-]
+FOLLOW_MESSAGES = utils.load_messages("assignment_1\portfolio\conversation.txt")
 
 # Read from conversation.txt
-CONVERSATION_MESSAGES = [
-    "So anyway, where were we",
-    "AH yeah I remember now",
-    "I'm sorry, I forgot",
-]
+CONVERSATION_MESSAGES = utils.load_messages("assignment_1/portfolio/conversation.txt")
 
 CONVERSATION_TRACKER = 0
 
 # Font
 font = pygame.font.SysFont("lucidaconsole", 24)
 npc_message = ""
-
-def quit_condition(event: pygame.event.Event) -> bool:
-    return event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and (event.key == pygame.K_ESCAPE or pygame.K_q))
 
 # Game loop
 clock = pygame.time.Clock()
@@ -102,7 +94,7 @@ while running:
     screen.fill(BLACK)
 
     for event in pygame.event.get():
-        if quit_condition(event):
+        if utils.quit_condition(event):
             running = False
 
     player_pos = pygame.Vector2(pygame.mouse.get_pos())
@@ -115,34 +107,22 @@ while running:
         npc_pos = npc_pos.move_towards(player_pos, NPC_SPEED)
 
         # TODO: 
-        # Draw triangle with NPC and player
-        # 1. Draw a line from NPC to player
-        # 2. Draw a line going from NPC to player in y axis
-        # 3. Draw a line going from player to NPC in x axis
         # Finish conversation.txt
         # 1. NPC has a conversation with player when they are close
         # 2. NPC says a message from the conversation.txt file
         # 3. NPC says a message from the FOLLOW_MESSAGES list when they are far
 
-        pygame.draw.line(screen, TERMINAL_GREEN, npc_pos, player_pos, 2)
-        pygame.draw.line(screen, TERMINAL_GREEN, npc_pos, player_pos.project(npc_pos), 2)
-        pygame.draw.line(screen, TERMINAL_GREEN, player_pos, npc_pos.project(player_pos), 2)
-        
-        
-
-
-
-        
-        
-        
-        # if random.randint(0, 100) < 2:
-        #     npc_message = random.choice(FOLLOW_MESSAGES)
-        # CONVERSATION_TRACKER = 0
-    # else:
-    #     if random.randint(0, 100) < 5: 
-    #         npc_message = CONVERSATION_MESSAGES[
-    #             CONVERSATION_TRACKER % len(CONVERSATION_MESSAGES)]
-    #         CONVERSATION_TRACKER += 1
+        # Draw lines connecting player and NPC
+        utils.create_rect_triangle(screen, TERMINAL_GREEN, player_pos, npc_pos, 2)
+                
+        if random.randint(0, 100) < 2:
+            npc_message = random.choice(FOLLOW_MESSAGES)
+            CONVERSATION_TRACKER = 0
+        else:
+            if random.randint(0, 100) < 5: 
+                npc_message = CONVERSATION_MESSAGES[
+                    CONVERSATION_TRACKER % len(CONVERSATION_MESSAGES)]
+                CONVERSATION_TRACKER += 1
 
     # Draw player and NPC
     pygame.draw.circle(screen, TERMINAL_GREEN, player_pos, 20)  # Player
