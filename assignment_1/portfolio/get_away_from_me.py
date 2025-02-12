@@ -2,41 +2,12 @@ import random
 import pygame
 from vector_distance import two_dimension_euclidean_distance
 import utils
+from initialisation import *
+from constants import *
+from entities import *
+from messages import *
 
-pygame.init()
-
-# Define colors
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-GRAY = (200, 200, 200)
-RED = (255, 0, 0)
-BLUE = (0, 0, 255)
-TERMINAL_GREEN = (74, 246, 38)
-
-WIDTH, HEIGHT = 1280, 720
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-
-# Grid settings
-CELL_SIZE = 50  # Distance between lines
-CENTER_X = WIDTH // 2
-CENTER_Y = HEIGHT // 2
-
-# Initialize player and NPC positions
-player_pos = pygame.Vector2(WIDTH // 2, HEIGHT // 2)
-npc_pos = pygame.Vector2(WIDTH // 2 - 100, HEIGHT // 2)
-NPC_SPEED = 4
-FOLLOW_DISTANCE = 50  # NPC follows if beyond this distance
-
-FOLLOW_MESSAGES = utils.load_messages("assignment_1/portfolio/annoying_messages.txt")
-CONVERSATION_MESSAGES = utils.load_messages("assignment_1/portfolio/conversation.txt")
-
-CONVERSATION_TRACKER = 0
-MESSAGE_DISPLAY_TIME = 2000  # Time to display each message in milliseconds
 last_message_time = pygame.time.get_ticks()
-
-# Font
-font = pygame.font.SysFont("lucidaconsole", 24)
-npc_message = ""
 
 # Game loop
 running = True
