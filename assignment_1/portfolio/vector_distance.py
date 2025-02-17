@@ -1,4 +1,3 @@
-
 def n_dimension_euclidean_distance(coordinate_1: tuple, coordinate_2: tuple) -> float:
     """
     Calculate the Euclidean distance between two coordinates of n dimensions.
