@@ -13,18 +13,18 @@ def main():
     logger = renamer.get_logger(True)
 
     # Rename .ma files
-    renamer.rename_files_in_folder(logger, "testing_files", "ma", 
+    renamer.rename_files_in_folder(logger, "assignment_2/testing_files", "ma", 
                                    ("_file_01", "_file_final_new_02"),
                                    "", "M_", "", False)
     
     # Rename .txt files
-    renamer.rename_files_in_folder(logger, "testing_files", "txt", "", "",
+    renamer.rename_files_in_folder(logger, "assignment_2/testing_files", "txt", "", "",
                                    "NOTE_", "_TEMP", True)
     
     # Rename .png files
-    renamer.rename_files_in_folder(logger, "testing_files", "png", 
+    renamer.rename_files_in_folder(logger, "assignment_2/testing_files", "png", 
                                    ("diffuse", "color"), "C", "", "")
-    renamer.rename_files_in_folder(logger, "testing_files", "png",
+    renamer.rename_files_in_folder(logger, "assignment_2/testing_files", "png",
                                    ("texture", "tex"), "T", "", "")
 
 

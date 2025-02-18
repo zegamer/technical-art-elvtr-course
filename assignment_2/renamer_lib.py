@@ -1,7 +1,6 @@
 import logger as logger
 import shutil
 import os
-import glob
 
 # DON'T TOUCH
 def get_logger(print_to_screen = False):
@@ -13,6 +12,24 @@ def get_logger(print_to_screen = False):
     """
 
     return logger.initialize_logger(print_to_screen)
+
+
+def get_file_constituents(file_path: str) -> str:
+    """
+    Returns the constituents of a file given its path
+
+    Args:
+        file_path: the path of the file whose name you'd like to get
+    """
+    
+    if os.path.isfile(file_path):
+        folder_path = os.path.dirname(file_path)
+        file_name, extension = os.path.basename(file_path).split(".")
+
+        return folder_path, file_name, extension
+    
+    else:
+        raise FileNotFoundError(f"The file {file_path} does not exist.")
 
 
 def get_renamed_file_path(existing_name: str, string_to_find: str, string_to_replace: str, 
@@ -38,13 +55,21 @@ def get_renamed_file_path(existing_name: str, string_to_find: str, string_to_rep
     Make sure to support string_to_find being an array of multiple strings!  
         Hint: you may need to check its type...
     '''
+    
     if type(string_to_find) is str:
-        string_to_find = [string_to_find]
-    
-    new_name = existing_name
+        string_to_find = list(string_to_find)
+
+    folder_name, file_name, extension = get_file_constituents(existing_name)
+
+    if prefix != "":
+        file_name = f"{prefix}_{file_name}"
+    if suffix != "":
+        file_name = f"{file_name}_{suffix}"
+
     for string in string_to_find:
-        existing_name = existing_name.replace(string, string_to_replace)
+        file_name = file_name.replace(string, string_to_replace)
     
+    return os.path.join(folder_name, f"{file_name}.{extension}")
 
 
 # Semi-done
@@ -67,29 +92,31 @@ def get_files_with_extension(logger, folder_path: str, extension: str) -> list[s
     Make sure to catch and handle errors if the folder doesn't exist!
     '''
     try:
-        if not os.path.exists(folder_path):
-            raise FileNotFoundError
+        if not os.path.isdir(folder_path):
+            raise FileNotFoundError(f"The folder {folder_path} does not exist.")
         
-        # Ensure the extension starts with a dot
+        
+        # Make sure the extension starts with a dot
         if not extension.startswith('.'):
             extension = '.' + extension
     
-        # Use glob to find files with the given extension
-        search_pattern = os.path.join(folder_path, f'*{extension}')
-        files = glob.glob(search_pattern)
+        # Find files in the directory with the given extension
+        
+        files = [os.path.join(folder_path, file) for file in os.listdir(folder_path) if file.endswith(extension)]
         logger.info(f"Files found: {files}")
 
         return files
     
-    except FileNotFoundError:
+    except FileNotFoundError as file_exception:
         logger.error(f"Folder does not exist. Make sure the path is correct.")
+        logger.error(f"Exception: {file_exception}")
         return []
 
     except Exception as exception:
         logger.error(f"An error occurred when getting files with extension: {exception}")
         return []
 
-# Semi-done
+
 def rename_file(logger, existing_name, new_name, copy=False):
     """
     Renames a file if it exists
@@ -113,7 +140,7 @@ def rename_file(logger, existing_name, new_name, copy=False):
     
     try:
         if not os.path.isfile(existing_name):
-            raise FileNotFoundError
+            raise FileNotFoundError(f"The file {existing_name} does not exist.")
         
         if copy:
             shutil.copy(existing_name, new_name)
@@ -164,26 +191,33 @@ def rename_files_in_folder(logger, folder_path, extension, string_to_find,
         - Use the logger instance to document the process of the program
     '''
     
-    files = get_files_with_extension(logger, folder_path, extension)
+    try:
+        files = get_files_with_extension(logger, folder_path, extension)
 
-    for file in files:
-        new_name = get_renamed_file_path(file, string_to_find, string_to_replace, prefix, suffix)
-        rename_file(logger, file, new_name, copy)
-        logger.info(f"File {file} renamed to {new_name}")
+        for file in files:
+            new_path = get_renamed_file_path(
+                existing_name=file,
+                string_to_find=string_to_find,
+                string_to_replace=string_to_replace,
+                prefix=prefix,
+                suffix=suffix
+            )
+            rename_file(logger, file, new_path, copy)
+            logger.info(f"File {file} renamed to {new_path}")
+    
+    except Exception as exception:
+        logger.critical(f"An error occurred when renaming files in folder: {exception}")
+        return
 
 
 def main():
     # Logger
     logger = get_logger(True)
     logger.info('Logger Initiated')
-
-    get_files_with_extension(logger, 'assignment_2/testing_files', 'txt')
-    rename_file(logger, 'assignment_2/testing_files/tex_rock_diffuse.png', 'assignment_2/testing_files/T_rock_M.png', True)
-
     #   Here are some examples of different logger messages
-    # logger.warning('This would be a logger warning')
-    # logger.error('This would be a logger error!!')
-    # logger.critical('This would be a critical log')
+    logger.warning('This would be a logger warning')
+    logger.error('This would be a logger error!!')
+    logger.critical('This would be a critical log')
 
 
 if __name__ == '__main__':
