@@ -1,6 +1,9 @@
 import logger as logger
+import shutil
+import os
+import glob
 
-
+# DON'T TOUCH
 def get_logger(print_to_screen = False):
     """
     Uses the logger.py module to create a logger
@@ -12,8 +15,8 @@ def get_logger(print_to_screen = False):
     return logger.initialize_logger(print_to_screen)
 
 
-def get_renamed_file_path(existing_name, string_to_find, string_to_replace, 
-                          prefix, suffix):
+def get_renamed_file_path(existing_name: str, string_to_find: str, string_to_replace: str, 
+                          prefix: str, suffix: str) -> str:
     """
     Returns the target file path given an existing file name and 
     string operations
@@ -35,9 +38,17 @@ def get_renamed_file_path(existing_name, string_to_find, string_to_replace,
     Make sure to support string_to_find being an array of multiple strings!  
         Hint: you may need to check its type...
     '''
-    pass
+    if type(string_to_find) is str:
+        string_to_find = [string_to_find]
+    
+    new_name = existing_name
+    for string in string_to_find:
+        existing_name = existing_name.replace(string, string_to_replace)
+    
 
-def get_files_with_extension(folder_path, extension):
+
+# Semi-done
+def get_files_with_extension(logger, folder_path: str, extension: str) -> list[str]:
     """
     Returns a collection of files in a given folder with an extension that 
     matches the provided extension
@@ -55,8 +66,30 @@ def get_files_with_extension(folder_path, extension):
 
     Make sure to catch and handle errors if the folder doesn't exist!
     '''
-    pass
+    try:
+        if not os.path.exists(folder_path):
+            raise FileNotFoundError
+        
+        # Ensure the extension starts with a dot
+        if not extension.startswith('.'):
+            extension = '.' + extension
+    
+        # Use glob to find files with the given extension
+        search_pattern = os.path.join(folder_path, f'*{extension}')
+        files = glob.glob(search_pattern)
+        logger.info(f"Files found: {files}")
 
+        return files
+    
+    except FileNotFoundError:
+        logger.error(f"Folder does not exist. Make sure the path is correct.")
+        return []
+
+    except Exception as exception:
+        logger.error(f"An error occurred when getting files with extension: {exception}")
+        return []
+
+# Semi-done
 def rename_file(logger, existing_name, new_name, copy=False):
     """
     Renames a file if it exists
@@ -77,7 +110,24 @@ def rename_file(logger, existing_name, new_name, copy=False):
     Copy files using shutil.copy
     make sure to import it at the top of the file
     '''
-    pass
+    
+    try:
+        if not os.path.isfile(existing_name):
+            raise FileNotFoundError
+        
+        if copy:
+            shutil.copy(existing_name, new_name)
+        else:
+            shutil.move(existing_name, new_name)
+    
+    except FileNotFoundError:
+        logger.error(f"File does not exist. Make sure the path is correct.")
+        return
+    
+    except Exception as exception:
+        logger.error(f"An error occurred when renaming file: {exception}")
+        return
+
 
 def rename_files_in_folder(logger, folder_path, extension, string_to_find,
                            string_to_replace, prefix, suffix, copy=False):
@@ -113,7 +163,13 @@ def rename_files_in_folder(logger, folder_path, extension, string_to_find,
                 - Use rename_file for this
         - Use the logger instance to document the process of the program
     '''
-    pass
+    
+    files = get_files_with_extension(logger, folder_path, extension)
+
+    for file in files:
+        new_name = get_renamed_file_path(file, string_to_find, string_to_replace, prefix, suffix)
+        rename_file(logger, file, new_name, copy)
+        logger.info(f"File {file} renamed to {new_name}")
 
 
 def main():
@@ -121,10 +177,13 @@ def main():
     logger = get_logger(True)
     logger.info('Logger Initiated')
 
+    get_files_with_extension(logger, 'assignment_2/testing_files', 'txt')
+    rename_file(logger, 'assignment_2/testing_files/tex_rock_diffuse.png', 'assignment_2/testing_files/T_rock_M.png', True)
+
     #   Here are some examples of different logger messages
-    logger.warning('This would be a logger warning')
-    logger.error('This would be a logger error!!')
-    logger.critical('This would be a critical log')
+    # logger.warning('This would be a logger warning')
+    # logger.error('This would be a logger error!!')
+    # logger.critical('This would be a critical log')
 
 
 if __name__ == '__main__':

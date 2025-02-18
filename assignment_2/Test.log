@@ -7,3 +7,16 @@
 2024-06-21 20:48:55,097 - Test Logger 1.0.0 - WARNING - This would be a logger warning
 2024-06-21 20:48:55,097 - Test Logger 1.0.0 - ERROR - This would be a logger error!!
 2024-06-21 20:48:55,098 - Test Logger 1.0.0 - CRITICAL - This would be a critical log
+2025-02-18 18:42:56,147 - Test Logger 1.0.0 - INFO - Logger Initiated
+2025-02-18 18:42:56,148 - Test Logger 1.0.0 - ERROR - Folder does not exist. Make sure the path is correct.
+2025-02-18 18:42:56,148 - Test Logger 1.0.0 - WARNING - This would be a logger warning
+2025-02-18 18:42:56,148 - Test Logger 1.0.0 - ERROR - This would be a logger error!!
+2025-02-18 18:42:56,148 - Test Logger 1.0.0 - CRITICAL - This would be a critical log
+2025-02-18 18:43:50,800 - Test Logger 1.0.0 - INFO - Logger Initiated
+2025-02-18 18:43:50,800 - Test Logger 1.0.0 - ERROR - Folder does not exist. Make sure the path is correct, 
+2025-02-18 18:45:58,957 - Test Logger 1.0.0 - INFO - Logger Initiated
+2025-02-18 18:45:58,958 - Test Logger 1.0.0 - INFO - Files found: ['testing_files\\hello_world.txt', 'testing_files\\lorem_ipsum.txt']
+2025-02-18 19:09:06,310 - Test Logger 1.0.0 - INFO - Logger Initiated
+2025-02-18 19:09:06,311 - Test Logger 1.0.0 - INFO - Files found: ['assignment_2/testing_files\\hello_world.txt', 'assignment_2/testing_files\\lorem_ipsum.txt']
+2025-02-18 19:17:40,405 - Test Logger 1.0.0 - INFO - Logger Initiated
+2025-02-18 19:17:40,407 - Test Logger 1.0.0 - INFO - Files found: ['assignment_2/testing_files\\hello_world.txt', 'assignment_2/testing_files\\lorem_ipsum.txt']
