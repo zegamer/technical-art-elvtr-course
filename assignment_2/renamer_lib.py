@@ -2,7 +2,7 @@ import logger as logger
 import shutil
 import os
 
-# DON'T TOUCH
+
 def get_logger(print_to_screen = False):
     """
     Uses the logger.py module to create a logger
