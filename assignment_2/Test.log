@@ -1,22 +1,15 @@
-2024-03-02 12:14:54,962 - Test Logger 1.0.0 - INFO - Logger Initiated
-2024-06-03 20:48:24,015 - Test Logger 1.0.0 - INFO - Logger Initiated
-2024-06-03 20:48:39,329 - Test Logger 1.0.0 - INFO - Logger Initiated
-2024-06-03 20:54:21,408 - Test Logger 1.0.0 - INFO - Logger Initiated
-2024-06-03 20:55:55,454 - Test Logger 1.0.0 - INFO - Logger Initiated
-2024-06-21 20:48:55,097 - Test Logger 1.0.0 - INFO - Logger Initiated
-2024-06-21 20:48:55,097 - Test Logger 1.0.0 - WARNING - This would be a logger warning
-2024-06-21 20:48:55,097 - Test Logger 1.0.0 - ERROR - This would be a logger error!!
-2024-06-21 20:48:55,098 - Test Logger 1.0.0 - CRITICAL - This would be a critical log
-2025-02-18 18:42:56,147 - Test Logger 1.0.0 - INFO - Logger Initiated
-2025-02-18 18:42:56,148 - Test Logger 1.0.0 - ERROR - Folder does not exist. Make sure the path is correct.
-2025-02-18 18:42:56,148 - Test Logger 1.0.0 - WARNING - This would be a logger warning
-2025-02-18 18:42:56,148 - Test Logger 1.0.0 - ERROR - This would be a logger error!!
-2025-02-18 18:42:56,148 - Test Logger 1.0.0 - CRITICAL - This would be a critical log
-2025-02-18 18:43:50,800 - Test Logger 1.0.0 - INFO - Logger Initiated
-2025-02-18 18:43:50,800 - Test Logger 1.0.0 - ERROR - Folder does not exist. Make sure the path is correct, 
-2025-02-18 18:45:58,957 - Test Logger 1.0.0 - INFO - Logger Initiated
-2025-02-18 18:45:58,958 - Test Logger 1.0.0 - INFO - Files found: ['testing_files\\hello_world.txt', 'testing_files\\lorem_ipsum.txt']
-2025-02-18 19:09:06,310 - Test Logger 1.0.0 - INFO - Logger Initiated
-2025-02-18 19:09:06,311 - Test Logger 1.0.0 - INFO - Files found: ['assignment_2/testing_files\\hello_world.txt', 'assignment_2/testing_files\\lorem_ipsum.txt']
-2025-02-18 19:17:40,405 - Test Logger 1.0.0 - INFO - Logger Initiated
-2025-02-18 19:17:40,407 - Test Logger 1.0.0 - INFO - Files found: ['assignment_2/testing_files\\hello_world.txt', 'assignment_2/testing_files\\lorem_ipsum.txt']
+2025-02-20 21:53:20,705 - Test Logger 1.0.0 - INFO - Files found: ['testing_files\\grass_file_01.ma', 'testing_files\\metal_file_01.ma', 'testing_files\\rock_file_final_new_02.ma']
+2025-02-20 21:53:20,706 - Test Logger 1.0.0 - INFO - File testing_files\grass_file_01.ma renamed to testing_files\M__grass.ma
+2025-02-20 21:53:20,707 - Test Logger 1.0.0 - INFO - File testing_files\metal_file_01.ma renamed to testing_files\M__metal.ma
+2025-02-20 21:53:20,708 - Test Logger 1.0.0 - INFO - File testing_files\rock_file_final_new_02.ma renamed to testing_files\M__rock.ma
+2025-02-20 21:53:20,709 - Test Logger 1.0.0 - INFO - Files found: ['testing_files\\hello_world.txt', 'testing_files\\lorem_ipsum.txt']
+2025-02-20 21:53:20,711 - Test Logger 1.0.0 - INFO - File testing_files\hello_world.txt renamed to testing_files\NOTE__hello_world__TEMP.txt
+2025-02-20 21:53:20,713 - Test Logger 1.0.0 - INFO - File testing_files\lorem_ipsum.txt renamed to testing_files\NOTE__lorem_ipsum__TEMP.txt
+2025-02-20 21:53:20,714 - Test Logger 1.0.0 - INFO - Files found: ['testing_files\\texture_grass_color.png', 'testing_files\\texture_metal_diffuse.png', 'testing_files\\tex_rock_diffuse.png']
+2025-02-20 21:53:20,715 - Test Logger 1.0.0 - INFO - File testing_files\texture_grass_color.png renamed to testing_files\texture_grass_C.png
+2025-02-20 21:53:20,716 - Test Logger 1.0.0 - INFO - File testing_files\texture_metal_diffuse.png renamed to testing_files\texture_metal_C.png
+2025-02-20 21:53:20,717 - Test Logger 1.0.0 - INFO - File testing_files\tex_rock_diffuse.png renamed to testing_files\tex_rock_C.png
+2025-02-20 21:53:20,718 - Test Logger 1.0.0 - INFO - Files found: ['testing_files\\texture_grass_C.png', 'testing_files\\texture_metal_C.png', 'testing_files\\tex_rock_C.png']
+2025-02-20 21:53:20,719 - Test Logger 1.0.0 - INFO - File testing_files\texture_grass_C.png renamed to testing_files\T_grass_C.png
+2025-02-20 21:53:20,720 - Test Logger 1.0.0 - INFO - File testing_files\texture_metal_C.png renamed to testing_files\T_metal_C.png
+2025-02-20 21:53:20,721 - Test Logger 1.0.0 - INFO - File testing_files\tex_rock_C.png renamed to testing_files\T_rock_C.png
