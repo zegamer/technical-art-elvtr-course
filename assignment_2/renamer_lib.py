@@ -35,6 +35,7 @@ def get_file_constituents(file_path: str) -> str:
 
 
 def get_renamed_file_path(
+    log,
     existing_name: str,
     string_to_find: str,
     string_to_replace: str,
@@ -46,6 +47,7 @@ def get_renamed_file_path(
     and string operations.
 
     Args:
+        log: logger instance
         existing_name: the existing file's name
         string_to_find: a string to find and replace in the existing filename
         string_to_replace: the string you'd like to replace it with
@@ -55,18 +57,24 @@ def get_renamed_file_path(
     if isinstance(string_to_find, str):
         string_to_find = list(string_to_find)
 
-    folder_name, file_name, extension = get_file_constituents(existing_name)
+    try:
+        folder_name, file_name, extension = get_file_constituents(existing_name)
 
-    # Set the prefix and suffix of the file name (if exists)
-    if prefix != "":
-        file_name = f"{prefix}_{file_name}"
-    if suffix != "":
-        file_name = f"{file_name}_{suffix}"
+        # Set the prefix and suffix of the file name (if exists)
+        if prefix != "":
+            file_name = f"{prefix}_{file_name}"
+        if suffix != "":
+            file_name = f"{file_name}_{suffix}"
 
-    for string in string_to_find:
-        file_name = file_name.replace(string, string_to_replace)
+        for string in string_to_find:
+            file_name = file_name.replace(string, string_to_replace)
 
-    return os.path.join(folder_name, f"{file_name}.{extension}")
+        return os.path.join(folder_name, f"{file_name}.{extension}")
+    
+    except FileNotFoundError as file_exception:
+        log.error("File does not exist. Make sure the path is correct.")
+        log.error(f"Exception: {file_exception}")
+        return ""
 
 
 def get_files_with_extension(
@@ -87,7 +95,7 @@ def get_files_with_extension(
         if not os.path.isdir(folder_path):
             raise FileNotFoundError(
                 f"The folder {folder_path} does not exist."
-            )  # 
+            )
 
         # Make sure the extension starts with a dot
         if not extension.startswith("."):
@@ -193,6 +201,7 @@ def rename_files_in_folder(
 
         for file in files:
             new_path = get_renamed_file_path(
+                log=log,
                 existing_name=file,
                 string_to_find=string_to_find,
                 string_to_replace=string_to_replace,
