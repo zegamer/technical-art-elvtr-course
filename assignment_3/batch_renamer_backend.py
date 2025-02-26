@@ -1,15 +1,9 @@
-"""
-Backend module.
-
-Renames files of a specific extension in a folder
-"""
-
 import os
 import shutil
 import logging
 
 
-class BatchRenamer:
+class BatchRenamerBackend:
     """
     A class to handle batch renaming of files in a specified directory.
 
@@ -24,27 +18,28 @@ class BatchRenamer:
         print_to_screen (bool): Whether to print log messages to the console.
 
     Methods:
-        initialize_logger(print_to_screen=False):
-            Initializes the logger for the class.
+        __initialize_logger(print_to_screen=False):
+            Initializes the logger for the class. (Private Method)
         
-        get_file_constituents(file_path: str) -> str:
-            Returns the constituents of a file given its path.
+        __get_file_constituents(file_path: str) -> str:
+            Returns the constituents of a file given its path. (Private Method)
         
-        get_renamed_file_path(
+        __get_renamed_file_path(
             existing_name: str,
             string_to_find: str,
             string_to_replace: str,
-            prefix: str, suffix: str
+            prefix: str, 
+            suffix: str
         ) -> str:
             Returns the target file path given an existing file name
-            and string operations.
+            and string operations. (Private Method)
         
-        get_files_with_extension(folder_path: str, extension: str) -> list[str]:
+        __get_files_with_extension(folder_path: str, extension: str):
             Returns a collection of files in a given folder with an extension
-            that matches the provided extension.
+            that matches the provided extension. (Private Method)
         
-        rename_file(existing_name: str, new_name: str, copy=False) -> None:
-            Renames a file if it exists.
+        __rename_file(existing_name: str, new_name: str, copy=False) -> None:
+            Renames a file if it exists. (Private Method)
         
         rename_files_in_folder(
             folder_path: str,
@@ -352,7 +347,7 @@ class BatchRenamer:
 
 
 if __name__ == "__main__":
-    x = BatchRenamer(print_to_screen=True)
+    x = BatchRenamerBackend(print_to_screen=True)
 
     x.rename_files_in_folder("testing_files", "ma",
                              ("_file_01", "_file_final_new_02b"), "",

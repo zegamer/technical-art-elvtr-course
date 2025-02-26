@@ -6,10 +6,54 @@ from PyQt6.QtWidgets import QMainWindow
 from PyQt6.QtWidgets import QApplication
 
 from batch_renamer_ui import Ui_main_window 
-from batch_rename_backend import BatchRenamer
+from batch_renamer_backend import BatchRenamerBackend
 
 
 class BatchRenamerWindow(QMainWindow, Ui_main_window):
+    """
+    A GUI application for batch renaming files using PyQt6.
+
+    This class provides a user interface for selecting a directory, specifying 
+    renaming rules (such as find-and-replace, prefix, and suffix), and executing 
+    batch renaming operations using `BatchRenamerBackend`.
+
+    Attributes:
+        file_list (list): List of file names in the selected directory.
+        batch_renamer (BatchRenamerBackend): Backend instance for renaming files.
+        logger (Logger): Logger for logging errors and status messages.
+
+    Methods:
+        reset_inputs():
+            Resets all input fields and restores default values.
+
+        get_file_path():
+            Opens a file dialog to select a directory.
+
+        set_file_path():
+            Updates the file path input field and refreshes the file list.
+
+        set_file_list():
+            Populates `file_list` with files in the selected directory.
+
+        update_file_view():
+            Clears and repopulates the file list widget with files from the 
+            directory.
+
+        update_extension_drop_down():
+            Updates the file extension filter dropdown based on available
+            file types.
+
+        get_element_value(value):
+            Returns the first element if `value` is a tuple;
+            otherwise, returns `value` itself.
+
+        filter_files_by_extension():
+            Filters the displayed file list based on the selected extension.
+
+        run_renamer():
+            Collects user input, applies renaming rules, and executes batch renaming.
+
+    """
     def __init__(self):
         
         # Initialise class variables
@@ -21,7 +65,7 @@ class BatchRenamerWindow(QMainWindow, Ui_main_window):
         self.setupUi(self)
         
         # Instance the "back end"
-        self.batch_renamer = BatchRenamer(print_to_screen=True)
+        self.batch_renamer = BatchRenamerBackend(print_to_screen=True)
         self.logger = self.batch_renamer.logger
 
         # Instantiate the action buttons
@@ -77,7 +121,7 @@ class BatchRenamerWindow(QMainWindow, Ui_main_window):
 
     def set_file_list(self):
         """
-        Create a list of file currently in the selected file path
+        Create a list of files currently in the selected folder
         """
         self.file_list = []
         for file in range(self.file_view_list_widget.count()):
@@ -86,9 +130,8 @@ class BatchRenamerWindow(QMainWindow, Ui_main_window):
 
     def update_file_view(self):
         """
-        Clear listwidget
-        read files in filepath with os.walk
-        Add files as new items
+        Clear listwidget, read files in filepath with os.walk and
+        add files as new items
         """
         self.file_view_list_widget.clear()
         for root, dirs, files in os.walk(self.file_path):
@@ -167,7 +210,6 @@ class BatchRenamerWindow(QMainWindow, Ui_main_window):
             prefix = self.get_element_value(self.prefix_line_edit.text())
             suffix = self.get_element_value(self.suffix_line_edit.text())
             
-            # rename = self.rename_radio_button.isChecked()
             copy = self.copy_radio_button.isChecked()
             extension = self.extension_drop_down.currentText()
 
