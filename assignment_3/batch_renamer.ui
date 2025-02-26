@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>main_window</class>
+ <widget class="QMainWindow" name="main_window">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>690</width>
+    <height>591</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>File renamer</string>
+  </property>
+  <widget class="QWidget" name="central_widget">
+   <widget class="QGroupBox" name="option_group">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>671</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Options</string>
+    </property>
+    <widget class="QWidget" name="verticalLayoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>651</width>
+       <height>111</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="options_layout">
+      <item>
+       <layout class="QHBoxLayout" name="line_1_layout">
+        <item>
+         <widget class="QLabel" name="file_path_label">
+          <property name="text">
+           <string>Folder Path</string>
+          </property>
+          <property name="buddy">
+           <cstring>file_path_line_edit</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="file_path_line_edit">
+          <property name="toolTip">
+           <string>File path of the file you want to rename</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="browse_button">
+          <property name="toolTip">
+           <string>Browse the file</string>
+          </property>
+          <property name="text">
+           <string>Browse</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="line_2_layout">
+        <item>
+         <layout class="QHBoxLayout" name="mode_layout">
+          <item>
+           <widget class="QLabel" name="mode_label">
+            <property name="text">
+             <string>Mode</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="mode_radio_button">
+            <item>
+             <widget class="QRadioButton" name="rename_radio_button">
+              <property name="toolTip">
+               <string>Replace the files with the new name</string>
+              </property>
+              <property name="text">
+               <string>Rename</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="copy_radio_button">
+              <property name="toolTip">
+               <string>Copy the files with the new name</string>
+              </property>
+              <property name="text">
+               <string>Copy</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="line_2_spacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="prefix_layout">
+          <item>
+           <widget class="QLabel" name="prefix_label">
+            <property name="text">
+             <string>Prefix</string>
+            </property>
+            <property name="buddy">
+             <cstring>prefix_line_edit</cstring>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="prefix_line_edit">
+            <property name="toolTip">
+             <string>Prefix for file name</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="suffix_layout">
+          <item>
+           <widget class="QLabel" name="suffix_label">
+            <property name="text">
+             <string>Suffix</string>
+            </property>
+            <property name="buddy">
+             <cstring>suffix_line_edit</cstring>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="suffix_line_edit">
+            <property name="toolTip">
+             <string>Suffix for the file name</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="line_3_layout">
+        <item>
+         <layout class="QHBoxLayout" name="string_to_find_layout">
+          <item>
+           <widget class="QLabel" name="string_to_find_label">
+            <property name="text">
+             <string>String to find</string>
+            </property>
+            <property name="buddy">
+             <cstring>string_to_find_line_edit</cstring>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="string_to_find_line_edit">
+            <property name="toolTip">
+             <string>Comma separated strings in file name that you want to replace</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="string_to_replace_layout">
+          <item>
+           <widget class="QLabel" name="string_to_replace_label">
+            <property name="text">
+             <string>String to replace</string>
+            </property>
+            <property name="buddy">
+             <cstring>string_to_replace_line_edit</cstring>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="string_to_replace_line_edit">
+            <property name="toolTip">
+             <string>Replacement string</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="extension_layout">
+          <item>
+           <widget class="QLabel" name="extension_label">
+            <property name="text">
+             <string>Extensions</string>
+            </property>
+            <property name="buddy">
+             <cstring>extension_drop_down</cstring>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="extension_drop_down">
+            <property name="toolTip">
+             <string>The file type you want to modify</string>
+            </property>
+            <item>
+             <property name="text">
+              <string>all</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget_8">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>510</y>
+      <width>671</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="button_layout">
+     <item>
+      <spacer name="button_spacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="run_button">
+       <property name="toolTip">
+        <string>Run the renamer</string>
+       </property>
+       <property name="text">
+        <string>Run</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="reset_button">
+       <property name="toolTip">
+        <string>Reset all inputs</string>
+       </property>
+       <property name="text">
+        <string>Reset</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget_9">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>160</y>
+      <width>671</width>
+      <height>341</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="file_view_layout">
+     <item>
+      <widget class="QListWidget" name="file_view_list_widget">
+       <property name="acceptDrops">
+        <bool>true</bool>
+       </property>
+       <property name="toolTip">
+        <string>Shows the list of files to rename</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>690</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
