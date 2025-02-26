@@ -1,9 +1,9 @@
 import os
 import sys
+
 from PyQt6.QtWidgets import QFileDialog
 from PyQt6.QtWidgets import QMainWindow
 from PyQt6.QtWidgets import QApplication
-# import PyQt6.QtCore 
 
 from batch_renamer_ui import Ui_main_window 
 from batch_rename_backend import BatchRenamer
@@ -42,11 +42,12 @@ class BatchRenamerWindow(QMainWindow, Ui_main_window):
         """
         Reset all inputs to default values
         """
-        self.file_path_line_edit.setText("")
-        self.string_to_find_line_edit.setText("")
-        self.string_to_replace_line_edit.setText("")
-        self.prefix_line_edit.setText("")
-        self.suffix_line_edit.setText("")
+        self.file_list = []
+        self.file_path_line_edit.clear()
+        self.string_to_find_line_edit.clear()
+        self.string_to_replace_line_edit.clear()
+        self.prefix_line_edit.clear()
+        self.suffix_line_edit.clear()
         self.rename_radio_button.setChecked(True)
         self.copy_radio_button.setChecked(False)
         self.extension_drop_down.clear()
@@ -78,6 +79,7 @@ class BatchRenamerWindow(QMainWindow, Ui_main_window):
         """
         Create a list of file currently in the selected file path
         """
+        self.file_list = []
         for file in range(self.file_view_list_widget.count()):
             self.file_list.append(self.file_view_list_widget.item(file).text())
 
@@ -149,7 +151,9 @@ class BatchRenamerWindow(QMainWindow, Ui_main_window):
         """
         try:
 
-            folder_path = self.get_element_value(self.file_path_line_edit.text())
+            folder_path = self.get_element_value(
+                self.file_path_line_edit.text()
+            )
             
             # String to find can be a comma separated value
             string_to_find = self.get_element_value(
@@ -185,7 +189,7 @@ class BatchRenamerWindow(QMainWindow, Ui_main_window):
         
         finally:
             # After every run, automatically update the file list
-            self.update_file_view()
+            self.set_file_path()
 
 
 if __name__ == '__main__':

@@ -58,7 +58,7 @@ class BatchRenamer:
             Renames all files in a folder with a given extension.
     """
     def __init__(
-            self, 
+            self,
             filepath          = None,
             copy_files        = False,
             filetypes         = None,
@@ -91,7 +91,7 @@ class BatchRenamer:
         ###############
         # Basic Setup #
         ###############
-        app_title = 'Test'
+        app_title = 'FileRenamer'
         version_number = '1.0.0'
         # get the path the script was run from, storing with forward slashes
         source_path = os.path.dirname(os.path.realpath(__file__))
@@ -105,7 +105,7 @@ class BatchRenamer:
         # more initialization
         self.logger = logging.getLogger(f'{app_title} Logger')
         self.logger.setLevel(logging.INFO)
-        
+
         ###############################
         # Formatter and Handler Setup #
         ###############################
@@ -188,12 +188,12 @@ class BatchRenamer:
                 file_name = file_name.replace(string, string_to_replace)
 
             return os.path.join(folder_name, f"{file_name}.{extension}")
-        
+
         except FileNotFoundError as file_exception:
             self.logger.error(
                 "File does not exist. Make sure the path is correct."
             )
-            self.logger.error(f"Exception: {file_exception}")
+            self.logger.error("Exception: %s", file_exception)
             return ""
 
 
@@ -234,13 +234,13 @@ class BatchRenamer:
             self.logger.error(
                 "Folder does not exist. Make sure the path is correct."
             )
-            self.logger.error(f"Exception: {file_exception}")
+            self.logger.error("Exception: %s", file_exception)
             return []
 
         except Exception as exception:
             self.logger.critical(
-                f"An unknown error occurred when getting files with extension: "
-                f"{exception}"
+                "Unknown error occurred when getting files: %s",
+                exception
             )
             return []
 
@@ -266,9 +266,10 @@ class BatchRenamer:
         """
         try:
             if not os.path.isfile(existing_name):
-                raise FileNotFoundError(
-                    f"The file {existing_name} does not exist."
-                )
+                raise FileNotFoundError
+
+            if os.path.isfile(new_name):
+                raise FileExistsError
 
             if copy:
                 shutil.copy(existing_name, new_name)
@@ -277,13 +278,17 @@ class BatchRenamer:
 
         except FileNotFoundError:
             self.logger.error(
-                "File does not exist. Make sure the path is correct."
-            )
+                    "The file %s does not exist. Make sure the path is correct",
+                    existing_name
+                )
+
+        except FileExistsError:
+            self.logger.error("File: %s already exists", new_name)
 
         except Exception as exception:
             self.logger.critical(
-                f"An unknown error occurred when renaming file: "
-                f"{exception}"
+                "An unknown error occurred when renaming file: %s",
+                exception
             )
 
 
@@ -326,7 +331,7 @@ class BatchRenamer:
                 )
                 return
 
-            self.logger.info(f"Files found: {files}")
+            self.logger.info("Files found: %s", files)
 
             for file in files:
                 new_path = self.__get_renamed_file_path(
@@ -337,17 +342,17 @@ class BatchRenamer:
                     suffix=suffix,
                 )
                 self.__rename_file(file, new_path, copy)
-                self.logger.info(f"File {file} renamed to {new_path}")
+                self.logger.info("File %s renamed to %s", file, new_path)
 
         except Exception as exception:
             self.logger.critical(
-                f"An unknown error occurred when renaming file: "
-                f"{exception}"
+                "An unknown error occurred when renaming file: %s",
+                exception
             )
 
 
 if __name__ == "__main__":
-    x = BatchRenamer(print_to_screen=False)
+    x = BatchRenamer(print_to_screen=True)
 
     x.rename_files_in_folder("testing_files", "ma",
                              ("_file_01", "_file_final_new_02b"), "",
