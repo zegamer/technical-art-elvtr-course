@@ -5,11 +5,11 @@ from PyQt6.QtWidgets import QFileDialog
 from PyQt6.QtWidgets import QMainWindow
 from PyQt6.QtWidgets import QApplication
 
-from batch_renamer_ui import Ui_main_window 
+from batch_renamer_ui import Ui_MainWindow 
 from batch_renamer_backend import BatchRenamerBackend
 
 
-class BatchRenamerWindow(QMainWindow, Ui_main_window):
+class BatchRenamerWindow(QMainWindow, Ui_MainWindow):
     """
     A GUI application for batch renaming files using PyQt6.
 
@@ -61,7 +61,7 @@ class BatchRenamerWindow(QMainWindow, Ui_main_window):
         
         # UI setup
         super().__init__()
-        super(Ui_main_window).__init__()
+        super(Ui_MainWindow).__init__()
         self.setupUi(self)
         
         # Instance the "back end"
