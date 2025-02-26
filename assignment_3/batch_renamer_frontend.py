@@ -5,7 +5,7 @@ from PyQt6.QtWidgets import QFileDialog
 from PyQt6.QtWidgets import QMainWindow
 from PyQt6.QtWidgets import QApplication
 
-from batch_renamer_ui import Ui_MainWindow 
+from batch_renamer_ui import Ui_MainWindow
 from batch_renamer_backend import BatchRenamerBackend
 
 
@@ -55,15 +55,16 @@ class BatchRenamerWindow(QMainWindow, Ui_MainWindow):
 
     """
     def __init__(self):
-        
+
         # Initialise class variables
         self.file_list = []
-        
+        self.file_path = ""
+
         # UI setup
         super().__init__()
         super(Ui_MainWindow).__init__()
         self.setupUi(self)
-        
+
         # Instance the "back end"
         self.batch_renamer = BatchRenamerBackend(print_to_screen=True)
         self.logger = self.batch_renamer.logger
@@ -112,12 +113,12 @@ class BatchRenamerWindow(QMainWindow, Ui_MainWindow):
         Set lineEdit text for filepath
         """
         self.file_path_line_edit.setText(self.file_path)
-        
+
         # Update list and file type drop down based on the fetched files
         self.update_file_view()
         self.set_file_list()
         self.update_extension_drop_down()
-    
+
 
     def set_file_list(self):
         """
@@ -150,14 +151,15 @@ class BatchRenamerWindow(QMainWindow, Ui_MainWindow):
                 extension = os.path.basename(file).split(".")[-1]
                 if extension and (extension not in available_extensions):
                     available_extensions.append(extension)
-            except TypeError or ValueError:
+            except (TypeError, ValueError):
                 available_extensions.append("")
                 continue
-            except Exception as e:
+            except Exception as exception:
                 self.logger.error(
-                    "Error occurred when updating extension drop down, "
-                    f"error: {e} ")
-        
+                    "Error occurred when updating extension drop down, %s",
+                    exception
+                )
+
         self.extension_drop_down.clear()
         self.extension_drop_down.addItems(available_extensions)
 
@@ -181,7 +183,7 @@ class BatchRenamerWindow(QMainWindow, Ui_MainWindow):
 
         if selected_extension == "all":
             self.file_view_list_widget.addItems(self.file_list)
-        
+
         for file in self.file_list:
             if file.endswith(selected_extension):
                 self.file_view_list_widget.addItem(file)
@@ -193,23 +195,22 @@ class BatchRenamerWindow(QMainWindow, Ui_MainWindow):
         self.batch_renamer is an instance of the BatchRenamer class
         """
         try:
-
             folder_path = self.get_element_value(
                 self.file_path_line_edit.text()
             )
-            
+
             # String to find can be a comma separated value
             string_to_find = self.get_element_value(
                 self.string_to_find_line_edit.text()
             )
             string_to_find = [i.strip() for i in string_to_find.split(",")]
-            
+
             string_to_replace = self.get_element_value(
                 self.string_to_replace_line_edit.text()
             )
             prefix = self.get_element_value(self.prefix_line_edit.text())
             suffix = self.get_element_value(self.suffix_line_edit.text())
-            
+
             copy = self.copy_radio_button.isChecked()
             extension = self.extension_drop_down.currentText()
 
@@ -222,13 +223,13 @@ class BatchRenamerWindow(QMainWindow, Ui_MainWindow):
                 suffix=suffix,
                 copy=copy
             )
-        
+
         except Exception as e:
             self.logger.critical(
                 "Error occurred when running the batch renamer"
             )
-            self.logger.critical(f"Error: {e}")
-        
+            self.logger.critical("Error: %s", e)
+
         finally:
             # After every run, automatically update the file list
             self.set_file_path()
@@ -238,4 +239,3 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = BatchRenamerWindow()
     sys.exit(app.exec())
- 
